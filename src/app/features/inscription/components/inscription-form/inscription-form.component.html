@@ -1,0 +1,89 @@
+<div class="register-container">
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="logo-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+      </svg>
+    </div>
+    <h1>Créer un compte</h1>
+    <p>Commencez à gérer vos notes dès aujourd'hui</p>
+  </div>
+
+  <!-- Form Card -->
+  <div class="card">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-row">
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName">Prénom</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            placeholder="John"
+            [class.invalid]="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName">Nom</label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Doe"
+            [class.invalid]="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Adresse email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="john@example.com"
+          [class.invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Créer un mot de passe"
+          [class.invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirmer votre mot de passe"
+          [class.invalid]="registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.invalid || registerForm.hasError('passwordMismatch'))">
+        <div *ngIf="registerForm.hasError('passwordMismatch')" class="error-message">
+          Les mots de passe ne correspondent pas
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="registerForm.invalid" class="btn-primary">
+        Créer mon compte
+      </button>
+
+      <!-- Footer Link -->
+      <div class="footer-link">
+        Déjà un compte ? <a routerLink="/login">Se connecter</a>
+      </div>
+
+    </form>
+  </div>
+</div>
