@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConnexionRequest } from '../../models/connexion.model';
 
@@ -15,7 +15,7 @@ export class ConnexionFormComponent {
   loginForm: FormGroup;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -37,7 +37,7 @@ export class ConnexionFormComponent {
     setTimeout(() => {
       this.isSubmitting = false;
       this.loginForm.reset();
-      alert('Connexion réussie !');
+      this.router.navigate(['']);
     }, 1000);
   }
 
