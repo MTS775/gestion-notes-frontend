@@ -10,6 +10,11 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordFormComponent },
   {
     path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'app',
     component: MainLayoutComponent,
   },
   { path: '**', redirectTo: '/login' },

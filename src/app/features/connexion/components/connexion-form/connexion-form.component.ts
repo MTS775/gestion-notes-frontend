@@ -37,7 +37,7 @@ export class ConnexionFormComponent {
     setTimeout(() => {
       this.isSubmitting = false;
       this.loginForm.reset();
-      this.router.navigate(['']);
+      this.router.navigate(['/app']);
     }, 1000);
   }
 
