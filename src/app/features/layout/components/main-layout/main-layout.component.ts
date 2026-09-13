@@ -11,14 +11,14 @@ import { SidebarConfig } from '../../../sidebar/models/sidebar.model';
   styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent {
+  isCollapsed = false;
+
   sidebarConfig: SidebarConfig = {
     title: 'Gestion Notes',
-    items: [
-      { label: 'Tableau de bord', icon: '📊', route: '/dashboard' },
-      { label: 'Élèves', icon: '👨‍🎓', route: '/eleves' },
-      { label: 'Notes', icon: '📝', route: '/notes' },
-      { label: 'Bulletins', icon: '📄', route: '/bulletins' },
-      { label: 'Paramètres', icon: '⚙️', route: '/parametres' }
-    ]
+    items: []
   };
+
+  onSidebarToggle(collapsed: boolean): void {
+    this.isCollapsed = collapsed;
+  }
 }

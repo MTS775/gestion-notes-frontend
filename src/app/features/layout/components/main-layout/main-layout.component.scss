@@ -1,6 +1,12 @@
 .main-layout {
   display: flex;
   min-height: 100vh;
+  background: #f8fafc;
+
+  // Par défaut sur desktop, la barre mobile est cachée
+  .mobile-header {
+    display: none;
+  }
 
   .main-content {
     flex: 1;
@@ -11,6 +17,12 @@
     overflow-x: hidden;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  &.sidebar-collapsed {
+    .main-content {
+      margin-left: 72px;
+    }
+  }
 }
 
 @media (max-width: 1024px) {
@@ -18,14 +30,66 @@
     .main-content {
       margin-left: 220px;
     }
+    &.sidebar-collapsed {
+      .main-content {
+        margin-left: 72px;
+      }
+    }
   }
 }
 
 @media (max-width: 768px) {
   .main-layout {
+    flex-direction: column;
+
+    // Affichage de la barre mobile en haut
+    .mobile-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      height: 60px;
+      background-color: #1e3a8a; // Même bleu que la sidebar
+      color: #ffffff;
+      padding: 0 1.25rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 998;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .mobile-menu-btn {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #ffffff;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background 0.2s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+        }
+      }
+
+      .mobile-brand {
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+    }
+
     .main-content {
-      margin-left: 0;
+      margin-left: 0 !important;
+      margin-top: 60px; // Laisse de l'espace pour la barre mobile fixe
       padding: 1rem;
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 }
