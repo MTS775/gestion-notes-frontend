@@ -15,6 +15,7 @@ export class ForgotPasswordFormComponent {
   forgotPasswordForm: FormGroup;
   isSubmitting = false;
   isSubmitted = false;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder) {
     this.forgotPasswordForm = this.fb.group({
@@ -29,15 +30,14 @@ export class ForgotPasswordFormComponent {
     }
 
     this.isSubmitting = true;
+    this.errorMessage = null;
     const forgotPasswordData: ForgotPasswordRequest = this.forgotPasswordForm.value;
 
-    // TODO: Appeler le service de réinitialisation de mot de passe
     console.log('Demande de réinitialisation:', forgotPasswordData);
 
     setTimeout(() => {
       this.isSubmitting = false;
       this.isSubmitted = true;
-      this.forgotPasswordForm.reset();
     }, 1000);
   }
 
