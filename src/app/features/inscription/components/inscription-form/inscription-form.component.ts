@@ -14,6 +14,8 @@ import { InscriptionRequest } from '../../models/inscription.model';
 export class InscriptionFormComponent {
   registerForm: FormGroup;
   isSubmitting = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
@@ -34,7 +36,6 @@ export class InscriptionFormComponent {
     this.isSubmitting = true;
     const inscriptionData: InscriptionRequest = this.registerForm.value;
 
-    // TODO: Appeler le service d'inscription
     console.log('Données d\'inscription:', inscriptionData);
 
     setTimeout(() => {
