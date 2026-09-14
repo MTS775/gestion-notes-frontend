@@ -1,53 +1,41 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConnexionRequest } from '../../models/connexion.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-connexion-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './connexion-form.component.html',
   styleUrl: './connexion-form.component.scss'
 })
-export class ConnexionFormComponent {
-  loginForm: FormGroup;
-  isSubmitting = false;
+export class ConnexionFormComponent implements OnInit {
+  loginForm!: FormGroup;
+  showPassword = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberMe: [false]
     });
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.markFormGroupTouched(this.loginForm);
-      return;
-    }
+    if (this.loginForm.valid) {
+      const { email, password, rememberMe } = this.loginForm.value;
+      console.log('Tentative de connexion avec :', email, rememberMe);
 
-    this.isSubmitting = true;
-    const connexionData: ConnexionRequest = this.loginForm.value;
+      // Simulation d'authentification réussie (à brancher sur votre API Spring Boot)
+      localStorage.setItem('token', 'fake-jwt-token');
 
-    // TODO: Appeler le service de connexion
-    console.log('Données de connexion:', connexionData);
-
-    setTimeout(() => {
-      this.isSubmitting = false;
-      this.loginForm.reset();
+      // Redirection vers le dashboard avec sidebar
       this.router.navigate(['/app']);
-    }, 1000);
+    }
   }
-
-  private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(key => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
-
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
 }
